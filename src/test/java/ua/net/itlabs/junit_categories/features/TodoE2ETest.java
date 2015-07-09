@@ -23,53 +23,53 @@ import static ua.net.itlabs.pages.TodoMVC.toggleTask;
 @Category(Smoke.class)
 public class TodoE2ETest extends OpenTodoMVCWIthClearData {
 
-        @Test
-        public void lifeCycle() {
-            // Create tasks
-            add("a");
-            add("b");
-            add("c");
-            add("d");
-            assertTasks("a", "b", "c", "d");
-            assertItemsLeftCounter(4);
+    @Test
+    public void lifeCycle() {
+        // Create tasks
+        add("a");
+        add("b");
+        add("c");
+        add("d");
+        assertTasks("a", "b", "c", "d");
+        assertItemsLeftCounter(4);
 
-            // Editing of existing task
-            editTask("a", "a edited");
-            assertTasks("a edited", "b", "c", "d");
+        // Editing of existing task
+        editTask("a", "a edited");
+        assertTasks("a edited", "b", "c", "d");
 
-            // Delete task
-            deleteTask("b");
-            assertTasks("a edited", "c", "d");
-            assertItemsLeftCounter(3);
+        // Delete task
+        deleteTask("b");
+        assertTasks("a edited", "c", "d");
+        assertItemsLeftCounter(3);
 
-            // Mark tasks as completed
-            toggleTask("d");
-            toggleTask("c");
-            assertItemsLeftCounter(1);
+        // Mark tasks as completed
+        toggleTask("d");
+        toggleTask("c");
+        assertItemsLeftCounter(1);
 
-            // Mark task as reopened
-            toggleTask("c");
-            assertItemsLeftCounter(2);
+        // Mark task as reopened
+        toggleTask("c");
+        assertItemsLeftCounter(2);
 
-            // Switch to filter active
-            filterActive();
-            assertVisibleTasks("a edited", "c");
+        // Switch to filter active
+        filterActive();
+        assertVisibleTasks("a edited", "c");
 
-            // Switch to filter completed
-            filterCompleted();
-            assertVisibleTasks("d");
+        // Switch to filter completed
+        filterCompleted();
+        assertVisibleTasks("d");
 
-            // Back to All filter
-            filterAll();
+        // Back to All filter
+        filterAll();
 
-            // Delete completed tasks
-            clearCompleted();
-            assertTasks("a edited", "c");
+        // Delete completed tasks
+        clearCompleted();
+        assertTasks("a edited", "c");
 
-            // Mark all left tasks as completed and then their removing
-            toggleAll();
-            assertItemsLeftCounter(0);
-            clearCompleted();
-            tasks.shouldBe(empty);
+        // Mark all left tasks as completed and then their removing
+        toggleAll();
+        assertItemsLeftCounter(0);
+        clearCompleted();
+        tasks.shouldBe(empty);
     }
 }
